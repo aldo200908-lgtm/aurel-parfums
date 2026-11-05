@@ -1,21 +1,116 @@
 'use strict';
-const fragrances=[
-{name:'Noir Absolu',family:'AMADERADO · ÁMBAR',filter:'amaderado',short:'Oud · Ámbar · Vainilla',top:'Pimienta negra, bergamota',heart:'Oud, rosa de Damasco',base:'Ámbar, vainilla, sándalo',desc:'La intensidad de la noche, embotellada. Maderas oscuras y un corazón de oud se funden con la calidez del ámbar. Una presencia serena que permanece.',colors:['#343325','#050b12'],glow:'#77633740'},
-{name:'Bleu Éther',family:'FRESCO · AROMÁTICO',filter:'fresco',short:'Bergamota · Salvia · Cedro',top:'Bergamota, pomelo',heart:'Salvia, lavanda',base:'Cedro, almizcle blanco',desc:'El instante en que el cielo se encuentra con el mar. Una salida cítrica y luminosa abre paso a un corazón aromático, sobre la elegancia limpia del cedro.',colors:['#164665','#081725'],glow:'#2c638f50'},
-{name:'Or Lumière',family:'FLORAL · SOLAR',filter:'floral',short:'Neroli · Jazmín · Almizcle',top:'Neroli, mandarina',heart:'Jazmín, flor de azahar',base:'Almizcle, ámbar suave',desc:'La luz dorada de una tarde que no quieres que termine. Flores blancas, cítricos delicados y una estela cálida que se siente como el sol sobre la piel.',colors:['#d8b66e','#796039'],glow:'#b4924140'},
-{name:'Bois Impérial',family:'AMADERADO · ESPECIADO',filter:'amaderado',short:'Cardamomo · Vetiver · Sándalo',top:'Cardamomo, pimienta rosa',heart:'Vetiver, hojas de violeta',base:'Sándalo, pachulí',desc:'Un refugio entre maderas nobles. El cardamomo despierta una composición profunda, donde el vetiver y el sándalo dibujan una elegancia natural.',colors:['#577077','#122126'],glow:'#5b777940'},
-{name:'Blanc Velours',family:'FLORAL · ALMIZCLADO',filter:'floral',short:'Iris · Té blanco · Almizcle',top:'Té blanco, pera',heart:'Iris, pétalos de peonía',base:'Almizcle blanco, cachemira',desc:'Suave como una segunda piel. La delicadeza del iris y el té blanco se envuelve en almizcles aterciopelados. Una belleza íntima, sutil y personal.',colors:['#e6e1cf','#9b9c96'],glow:'#cfceb12c'}];
-const $=s=>document.querySelector(s);let active=0,playing=false,timer,selected=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function bottle(p){return `<span class="bottle" style="--b1:${p.colors[0]};--b2:${p.colors[1]}"><span class="neck"></span><span class="cap"></span><span class="label"><strong>AUREL</strong><small>MAISON DE PARFUM</small><hr><b>${p.name.toUpperCase()}</b><i>EAU DE PARFUM · 100 ML</i></span></span>`;}
-$('#stage').innerHTML=fragrances.map((p,i)=>`<button class="perfume" data-index="${i}" aria-label="Seleccionar ${p.name}">${bottle(p)}</button>`).join('');
-$('#products').innerHTML=fragrances.map((p,i)=>`<button class="product" data-index="${i}" data-family="${p.filter}" aria-label="Descubrir ${p.name}"><div class="product-art" style="--glow:${p.glow}"><span class="product-num">0${i+1}</span>${bottle(p)}</div><h3>${p.name}</h3><p>${p.short}</p><div class="product-bottom"><span>EAU DE PARFUM</span><span>100 ML</span></div></button>`).join('');
-function show(index){active=(index+fragrances.length)%fragrances.length;const p=fragrances[active];document.querySelectorAll('.perfume').forEach((el,i)=>{let position=(i-active+5)%5;if(position>2)position-=5;el.dataset.position=position;el.setAttribute('aria-current',String(position===0));el.tabIndex=position===0?0:-1;});$('#active-name').textContent=p.name;$('#family').textContent=p.family;$('#active-notes').textContent=p.short;$('#current').textContent=String(active+1).padStart(2,'0');$('.light').style.background=`radial-gradient(ellipse at 50% 45%,${p.glow},transparent 65%)`;}
-function stop(){playing=false;clearInterval(timer);$('#autoplay').innerHTML='REPRODUCIR <span>▷</span>';$('#autoplay').setAttribute('aria-label','Activar reproducción automática');}
-function manual(index){stop();show(index);}
-$('#prev').onclick=()=>manual(active-1);$('#next').onclick=()=>manual(active+1);$('#stage').onclick=e=>{const el=e.target.closest('.perfume');if(el){const i=Number(el.dataset.index);if(i===active)openDetail(i);else manual(i);}};
-$('#stage').addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();manual(active+1);$('.perfume[aria-current="true"]').focus();}if(e.key==='ArrowLeft'){e.preventDefault();manual(active-1);$('.perfume[aria-current="true"]').focus();}});
-let startX,startY;$('#stage').addEventListener('pointerdown',e=>{startX=e.clientX;startY=e.clientY;});$('#stage').addEventListener('pointerup',e=>{if(startX==null)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){manual(active+(dx<0?1:-1));}startX=null;});$('#stage').addEventListener('pointercancel',()=>{startX=null;});
-$('#autoplay').onclick=()=>{if(playing){stop();return;}playing=true;$('#autoplay').innerHTML='PAUSAR <span>Ⅱ</span>';$('#autoplay').setAttribute('aria-label','Pausar reproducción automática');timer=setInterval(()=>show(active+1),4500);};document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
-const dialog=$('#detail');let oldOverflow='';function openDetail(i){stop();selected=i;const p=fragrances[i];$('#detail-art').innerHTML=bottle(p);$('#detail-art').style.setProperty('--glow',p.glow);$('#detail-name').textContent=p.name;$('#detail-family').textContent=p.family;$('#detail-desc').textContent=p.desc;$('#top-notes').textContent=p.top;$('#heart-notes').textContent=p.heart;$('#base-notes').textContent=p.base;oldOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();}$('#explore').onclick=()=>openDetail(active);$('.close').onclick=()=>dialog.close();dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;});dialog.onclick=e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}};$('#products').onclick=e=>{const p=e.target.closest('.product');if(p)openDetail(Number(p.dataset.index));};$('#choose').onclick=()=>{dialog.close();manual(selected);$('#inicio').scrollIntoView({behavior:reduced?'instant':'smooth'});$('#explore').focus({preventScroll:true});};$('#openCollection').onclick=()=>$('#coleccion').scrollIntoView({behavior:reduced?'instant':'smooth'});
-document.querySelectorAll('[data-filter]').forEach(button=>button.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelectorAll('.product').forEach(p=>{p.hidden=button.dataset.filter!=='all'&&p.dataset.family!==button.dataset.filter;});});
-if('IntersectionObserver'in window&&!reduced){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.1});document.querySelectorAll('.section-heading,.maison-art,.maison-copy,.closing>h2').forEach(el=>{el.classList.add('reveal');observer.observe(el);});}$('#year').textContent=new Date().getFullYear();show(0);
+const $ = selector => document.querySelector(selector);
+let active = 0, playing = false, timer, selected = 0, currentFilter = 'all';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const total = fragrances.length;
+const productLabel = p => `${p.brand} · ${p.name}`;
+function bottle(p, eager = false) {
+ return `<img class="bottle-image" src="./assets/perfumes/${p.id}.webp" alt="${productLabel(p)}" width="560" height="840" loading="${eager ? 'eager' : 'lazy'}" decoding="async" draggable="false">`;
+}
+$('#stage').innerHTML = fragrances.map((p, i) => `<button class="perfume" data-index="${i}" ${Math.abs(carouselPosition(i, 0, total)) > 2 ? 'hidden' : ''} aria-label="Seleccionar ${productLabel(p)}">${bottle(p, Math.abs(carouselPosition(i, 0, total)) <= 2)}</button>`).join('');
+$('#products').innerHTML = fragrances.map((p, i) => `<button class="product" data-index="${i}" data-family="${p.group}" aria-label="Descubrir ${productLabel(p)}"><div class="product-art" style="--glow:${p.glow}"><span class="product-num">${String(i+1).padStart(2, '0')}</span>${bottle(p)}</div><span class="product-brand">${p.brand}</span><h3>${p.name}</h3><p>${p.design}</p><div class="product-bottom"><span>EXPLORAR PERFUME</span><span>↗</span></div></button>`).join('');
+$('#total').textContent = String(total).padStart(2, '0');
+$('#all-count').textContent = total;
+function show(index) {
+ active = (index + total) % total;
+ const p = fragrances[active];
+ document.querySelectorAll('.perfume').forEach((el, i) => {
+  const position = carouselPosition(i, active, total);
+  el.hidden = Math.abs(position) > 2;
+  el.dataset.position = position;
+  el.setAttribute('aria-current', String(position === 0));
+  el.setAttribute('aria-label', `${position === 0 ? 'Descubrir' : 'Seleccionar'} ${productLabel(fragrances[i])}`);
+  el.tabIndex = position === 0 ? 0 : -1;
+  if (!el.hidden) el.querySelector('img').loading = 'eager';
+ });
+ $('#stage').setAttribute('aria-label', `Galería de ${total} perfumes. ${active+1} de ${total}: ${productLabel(p)}`);
+ $('#active-name').textContent = p.name;
+ $('#family').textContent = p.brand.toUpperCase();
+ $('#active-notes').textContent = p.design;
+ $('#current').textContent = String(active + 1).padStart(2, '0');
+ $('.light').style.background = `radial-gradient(ellipse at 50% 45%,${p.glow},transparent 65%)`;
+}
+function stop() {
+ playing = false; clearInterval(timer);
+ $('#autoplay').innerHTML = 'REPRODUCIR <span>▷</span>';
+ $('#autoplay').setAttribute('aria-label', 'Activar reproducción automática');
+ $('#autoplay').setAttribute('aria-pressed', 'false');
+}
+function manual(index) { stop(); show(index); }
+$('#prev').onclick = () => manual(active-1);
+$('#next').onclick = () => manual(active+1);
+let startX, startY, swiped = false;
+$('#stage').onclick = e => {
+ if (swiped) { swiped = false; return; }
+ const el = e.target.closest('.perfume');
+ if (el) { const i = Number(el.dataset.index); if (i === active) openDetail(i); else manual(i); }
+};
+$('#stage').addEventListener('keydown', e => {
+ if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+  e.preventDefault(); manual(active + (e.key === 'ArrowRight' ? 1 : -1));
+  $('.perfume[aria-current="true"]').focus();
+ }
+});
+$('#stage').addEventListener('pointerdown', e => { startX = e.clientX; startY = e.clientY; swiped = false; });
+$('#stage').addEventListener('pointerup', e => {
+ if (startX == null) return;
+ const dx = e.clientX-startX, dy = e.clientY-startY;
+ if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { swiped = true; manual(active + (dx < 0 ? 1 : -1)); }
+ startX = null;
+});
+$('#stage').addEventListener('pointercancel', () => { startX = null; });
+$('#autoplay').onclick = () => {
+ if (playing) { stop(); return; }
+ playing = true;
+ $('#autoplay').innerHTML = 'PAUSAR <span>Ⅱ</span>';
+ $('#autoplay').setAttribute('aria-label', 'Pausar reproducción automática');
+ $('#autoplay').setAttribute('aria-pressed', 'true');
+ timer = setInterval(() => show(active+1), 4500);
+};
+document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+const dialog = $('#detail'); let oldOverflow = '';
+function openDetail(i) {
+ stop(); selected = i; const p = fragrances[i];
+ $('#detail-art').innerHTML = bottle(p, true);
+ $('#detail-art').style.setProperty('--glow', p.glow);
+ $('#detail-name').textContent = p.name;
+ $('#detail-family').textContent = p.brand.toUpperCase();
+ $('#detail-desc').textContent = p.desc;
+ $('#top-notes').textContent = p.color;
+ $('#heart-notes').textContent = p.detail;
+ $('#base-notes').textContent = p.brand;
+ oldOverflow = document.body.style.overflow;
+ document.body.style.overflow = 'hidden'; dialog.showModal();
+}
+$('#explore').onclick = () => openDetail(active);
+$('.close').onclick = () => dialog.close();
+dialog.addEventListener('close', () => { document.body.style.overflow = oldOverflow; });
+dialog.onclick = e => {
+ if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); }
+};
+$('#products').onclick = e => { const p = e.target.closest('.product'); if (p) openDetail(Number(p.dataset.index)); };
+$('#choose').onclick = () => { dialog.close(); manual(selected); $('#inicio').scrollIntoView({behavior:reduced?'instant':'smooth'}); $('#explore').focus({preventScroll:true}); };
+$('#openCollection').onclick = () => $('#coleccion').scrollIntoView({behavior:reduced?'instant':'smooth'});
+function filterProducts() {
+ const query = normalizeSearch($('#search').value.trim()); let visible = 0;
+ document.querySelectorAll('.product').forEach((el, i) => {
+  const p = fragrances[i];
+  el.hidden = (currentFilter !== 'all' && p.group !== currentFilter) || !normalizeSearch(productLabel(p)).includes(query);
+  if (!el.hidden) visible++;
+ });
+ $('#results-count').textContent = `${visible} ${visible === 1 ? 'perfume' : 'perfumes'}`;
+ $('#empty').hidden = visible !== 0;
+}
+document.querySelectorAll('[data-filter]').forEach(button => button.onclick = () => {
+ currentFilter = button.dataset.filter;
+ document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+ filterProducts();
+});
+$('#search').addEventListener('input', filterProducts);
+$('#reset-search').onclick = () => { $('#search').value = ''; currentFilter = 'all'; document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === 'all'))); filterProducts(); $('#search').focus(); };
+if ('IntersectionObserver' in window && !reduced) {
+ const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }), {threshold:.1});
+ document.querySelectorAll('.section-heading,.maison-art,.maison-copy,.closing>h2').forEach(el => { el.classList.add('reveal'); observer.observe(el); });
+}
+$('#year').textContent = new Date().getFullYear();
+show(0); filterProducts();

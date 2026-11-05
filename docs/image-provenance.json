@@ -1,0 +1,202 @@
+[
+  {
+    "id": "ysl-myslf",
+    "name": "Yves Saint Laurent MYSLF Eau de Parfum",
+    "source_reference": "01-79016.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/ysl-myslf.webp",
+    "width": 259,
+    "height": 840,
+    "bytes": 34884
+  },
+  {
+    "id": "jpg-le-male",
+    "name": "Jean Paul Gaultier Le Male",
+    "source_reference": "02-79015.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-le-male.webp",
+    "width": 370,
+    "height": 840,
+    "bytes": 45260
+  },
+  {
+    "id": "jpg-elixir",
+    "name": "Jean Paul Gaultier Le Male Elixir",
+    "source_reference": "05-79014.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-elixir.webp",
+    "width": 377,
+    "height": 840,
+    "bytes": 99062
+  },
+  {
+    "id": "jpg-le-male-parfum",
+    "name": "Jean Paul Gaultier Le Male Le Parfum",
+    "source_reference": "09-79011.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-le-male-parfum.webp",
+    "width": 387,
+    "height": 840,
+    "bytes": 42040
+  },
+  {
+    "id": "jpg-paradise-garden",
+    "name": "Jean Paul Gaultier Le Beau Paradise Garden",
+    "source_reference": "02-79015.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-paradise-garden.webp",
+    "width": 386,
+    "height": 840,
+    "bytes": 89058
+  },
+  {
+    "id": "jpg-le-beau",
+    "name": "Jean Paul Gaultier Le Beau",
+    "source_reference": "02-79015.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-le-beau.webp",
+    "width": 394,
+    "height": 840,
+    "bytes": 87482
+  },
+  {
+    "id": "jpg-scandal",
+    "name": "Jean Paul Gaultier Scandal Pour Homme",
+    "source_reference": "02-79015.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-scandal.webp",
+    "width": 465,
+    "height": 840,
+    "bytes": 99140
+  },
+  {
+    "id": "jpg-le-beau-parfum",
+    "name": "Jean Paul Gaultier Le Beau Le Parfum",
+    "source_reference": "08-79010.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/jpg-le-beau-parfum.webp",
+    "width": 395,
+    "height": 840,
+    "bytes": 81678
+  },
+  {
+    "id": "club-de-nuit",
+    "name": "Armaf Club de Nuit Intense Man",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/club-de-nuit.webp",
+    "width": 522,
+    "height": 840,
+    "bytes": 43784
+  },
+  {
+    "id": "qaed-al-fursan",
+    "name": "Lattafa Qaed Al Fursan",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/qaed-al-fursan.webp",
+    "width": 560,
+    "height": 800,
+    "bytes": 99770
+  },
+  {
+    "id": "badee-sublime",
+    "name": "Lattafa Bade'e Al Oud Sublime",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/badee-sublime.webp",
+    "width": 486,
+    "height": 840,
+    "bytes": 114072
+  },
+  {
+    "id": "lattafa-asad",
+    "name": "Lattafa Asad",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/lattafa-asad.webp",
+    "width": 361,
+    "height": 840,
+    "bytes": 57350
+  },
+  {
+    "id": "afnan-9am-dive",
+    "name": "Afnan 9 AM Dive",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/afnan-9am-dive.webp",
+    "width": 353,
+    "height": 840,
+    "bytes": 59900
+  },
+  {
+    "id": "afnan-9pm",
+    "name": "Afnan 9 PM",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/afnan-9pm.webp",
+    "width": 363,
+    "height": 840,
+    "bytes": 61152
+  },
+  {
+    "id": "asad-bourbon",
+    "name": "Lattafa Asad Bourbon",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/asad-bourbon.webp",
+    "width": 364,
+    "height": 840,
+    "bytes": 58918
+  },
+  {
+    "id": "lattafa-khamrah",
+    "name": "Lattafa Khamrah",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/lattafa-khamrah.webp",
+    "width": 560,
+    "height": 810,
+    "bytes": 223548
+  },
+  {
+    "id": "fakhar-black",
+    "name": "Lattafa Fakhar Black",
+    "source_reference": "03-79017.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/fakhar-black.webp",
+    "width": 484,
+    "height": 840,
+    "bytes": 90022
+  },
+  {
+    "id": "versace-eros-flame",
+    "name": "Versace Eros Flame",
+    "source_reference": "04-79012.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/versace-eros-flame.webp",
+    "width": 560,
+    "height": 788,
+    "bytes": 133904
+  },
+  {
+    "id": "bleu-de-chanel",
+    "name": "Bleu de Chanel Eau de Parfum",
+    "source_reference": "06-79013.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/bleu-de-chanel.webp",
+    "width": 560,
+    "height": 776,
+    "bytes": 45436
+  },
+  {
+    "id": "valentino-born-roma",
+    "name": "Valentino Uomo Born in Roma",
+    "source_reference": "07-79009.jpg",
+    "method": "AI-generated individual product image from user reference",
+    "file": "assets/perfumes/valentino-born-roma.webp",
+    "width": 485,
+    "height": 840,
+    "bytes": 148472
+  }
+]
